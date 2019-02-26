@@ -21,8 +21,8 @@ Interactive table is responsive VUE table component with powerful features which
 
 ## Prerequisite
 
--  InteractiveTable is vue Components so you must have VUE in order to use it.
--  Your data must contain any kind of unique key in order the Table action (Edit , InlineEdit , Delete ) to work properly. If you didn't specifiy the unique key the components by default will consider that your feed contain proprty called **id** and look for that unique key if the component coudn't find it, the bulk actions will be disabled even if you enabled it in the configuration. Of course you can change the default behavior to use any other field as long as it's uniqe for example if your unique key is **sku** you can define that in the configuration for more details please check the config section. [please check the config section](#config-object)
+-  This package is vue Components so you must have VUE in order to use it.
+-  Your data must contain any kind of unique key in order the Table action (Edit , InlineEdit , Delete ) to work properly. If you didn't specifiy the unique key the components by default will consider that your feed contain property called **id** and look for that unique key if the component coudn't find it, the bulk actions will be disabled even if you enabled it in the configuration. Of course you can change the default behavior to use any other field as long as it's uniqe for example if your unique key is **sku** you can define that in the configuration for more details please check the config section. [please check the config section](#config-object)
 
 
 ## Usage
@@ -37,20 +37,20 @@ This components accept two Props :
 **exmaple without the config option:**
 
 ```html
- <interactive-table feed="data" ></interactive-table>
+ <vue-table-ak feed="data" ></vue-table-ak>
 ``` 
 
 **exmaple with the config option:**
 
 ```html
- <interactive-table feed="data"  :config="tableConfig"></interactive-table>
+ <vue-table-ak feed="data"  :config="tableConfig"></vue-table-ak>
 ``` 
 
 
 
 **Probs Exmaple:**
 
-***Feed  Object :***
+***Feed Object:***
 
  ```javascript
 [{
@@ -71,9 +71,10 @@ This components accept two Props :
 
 ***Config Object***
 
-Config object accept several options to mainuplate the components behavior , we will walk through each one.
+Config object accept several options so you can mainuplate the components behavior , we will walk through each one.
 
           tableConfig: {
+			uniqueKey: "id",
             date: { active: false, format: "MMMM Do YYYY, h:mm:ss a" },
             perPage: [5, 10, 15],
             title: "My Products List",
@@ -139,47 +140,50 @@ Config object accept several options to mainuplate the components behavior , we 
 
 **Config Object Proprties details:**
  
-**feedID propry**
+**uniqueKey property**
 ----
-- type: "string"
-- default: "id"
 
-In order the actions in the table to work properly your feed **must** contain unique id or sku  
+In order the actions features in this components to work properly your feed **must** contain uniquekey.
 
-***date proprty***
+You can define the uniqueKey through this property or you can use the default value `id`
 
-----
-- type: `object`
-- default: `{ active: true, format: "MMMM Do YYYY, h:mm:ss a" }`
+**Note:** if the unique is not found in the data feed the bulk actions will be disabled.
 
-the date proprty give you two options as follow: 
-- ***active***
- -  type : `boolean`
- - default: `true`
- 
-This option give you the ability to toggle the date filter functionality. 
-
-- ***format***
-  - type: `string`
-  - default `"MMMM Do YYYY, h:mm:ss a"`
-
-This option give you the ability to change the printed formated date in the table content if any date exist in the feed. 
+- type: `string`
+- default: `id`
 
  **Example:**
  ```javascript
       config: {
-        date: { 
-			active: false,
-			format: "MMMM Do (YYYY), h:mm:ss a" }
-	      }}
+		uniqueKey: "sku"
+		}
 ```
- **perPage**
 
- ---
+
+***date property***
+---
+Through this property you have the ability to toggle the date filter and define how you want the date data to be formatted within the table content.
+
+- type: `object`
+- default: `{ active: true, format: "MMMM Do YYYY, h:mm:ss a" }`
+
+ **Example:**
+ ```javascript
+      config: {
+       	    date: { 
+				active: false,
+				format: "MMMM Do (YYYY), h:mm:ss a" }
+				  }
+			}
+```
+
+ **perPage**
+---
+You can define how many item to be displayed in each page.
+
  - type: `array`
  - default: `[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]`
 
- The perPage proprty give you the felxebility to define how many item to be displayed per page as this components come with pagination feature
 
  **Example:**
  ```javascript
@@ -189,11 +193,11 @@ This option give you the ability to change the printed formated date in the tabl
 ```
 
  **title**
- ---
+---
+You can define custom title of the table to be displayed as table Title
+
  - type: `string`
  - default `empty`
- 
- The title proprty give the option display the table title.
  
   **Example:**
  ```javascript
@@ -204,13 +208,12 @@ This option give you the ability to change the printed formated date in the tabl
   
   
  **bulkActions**
- 
- ---
+---
  
   - type: `boolean`
   - default: `true`
   
-  This **bulkActions** proprty give you the flexbility to disable or enable the bulk actions feature
+  This **bulkActions** property give you the flexbility to disable or enable the bulk actions feature
   
    **Example:**
 	 ```javascript
@@ -225,7 +228,7 @@ This option give you the ability to change the printed formated date in the tabl
   - type: `object`
   default: `{ edite: true,  delete: true }`
   
-  This **Actions** proprty give the ability to enable or disable the edite & delete features
+  This **Actions** property give the ability to enable or disable the edite & delete features
   
    **Example:**
 	 ```javascript
@@ -261,7 +264,7 @@ This option give you the ability to change the printed formated date in the tabl
 
  This **newItemFields** allow you to define  the new item fields which the user can enter and the type of each field
 
- **this proprty accept four proprty in each object as follow:**
+ **this property accept four property in each object as follow:**
 ```javascript
        		{
                 name: "", \\ The field name
@@ -281,7 +284,7 @@ This option give you the ability to change the printed formated date in the tabl
 
 This **editItemsFields** allow to define the edite action fields which the user can modify.
 
-This proprty accept four in each object as follow: 
+This property accept four in each object as follow: 
 
 ```javascript
     {
@@ -300,9 +303,9 @@ This proprty accept four in each object as follow:
 - default: `all feed object key`
 
 
-This proprty give the ability to define which feed key to render in the table and also allow you to define which field can be edited inline
+This property give the ability to define which feed key to render in the table and also allow you to define which field can be edited inline
 
-This proprty accept three in each object as follow:
+This property accept three in each object as follow:
 
 ```javascript
     {
@@ -318,7 +321,7 @@ This proprty accept three in each object as follow:
  - options: `remote , local`
 
 
-Though this proprty you can define the search feature type if local this component will search only in the provided feed and if remote then an event of serach will be triggered after the user enter three character in the search box so you can trigger for example an Ajax request to your backend.
+Though this property you can define the search feature type if local this component will search only in the provided feed and if remote then an event of serach will be triggered after the user enter three character in the search box so you can trigger for example an Ajax request to your backend.
 
 
 
