@@ -1,0 +1,41 @@
+$responsive-width: 760px;
+$desktop-width: 1024px;
+
+@mixin responsive {
+
+	@media (max-width: $responsive-width),
+		(min-device-width: #{$responsive-width}) and (max-device-width: #{$desktop-width}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: #{$desktop-width}) {
+		@content;
+	}
+}
+
+@mixin flexbox {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+@mixin user-select {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@mixin flexalign($value: center) {
+	-webkit-box-align: $value;
+	-ms-flex-align: $value;
+	align-items: $value
+}
+
+@mixin flexjustufy($value: center) {
+	-webkit-box-pack: $value;
+	-ms-flex-pack: $value;
+	justify-content: $value;
+}
