@@ -1,6 +1,9 @@
 # VUE Table AK
 
-Interactive table is responsive VUE table component with powerful features which give you the flexibility to use in any web projects
+Interactive table is responsive VUE table component with powerful features which give you the flexibility to use in any web projects and with any backend.
+
+
+In the botton of README I have included the basic of useage with Laraval as backend. [Laraval](#config-object)
  
  
 ## VUE Table AK Components Features
@@ -60,7 +63,7 @@ This components accept two Props :
 	price: " 100$",
 	date_created: "2019-03-13T09:43:05-07:00"
 }, {
-	id: 1,
+	id: 2,
 	title: "My Second Product",
 	description: "My second product description",
 	price: " 200$",
@@ -70,9 +73,11 @@ This components accept two Props :
 
 
 ***Config Object***
+----
 
 Config object accept several options so you can mainuplate the components behavior , we will walk through each one.
-
+ ```javascript
+[{
           tableConfig: {
 			uniqueKey: "id",
             date: { active: false, format: "MMMM Do YYYY, h:mm:ss a" },
@@ -136,12 +141,14 @@ Config object accept several options so you can mainuplate the components behavi
                 isEditable: true
               }]
           }
-
+```
 
 **Config Object Proprties details:**
- 
-**uniqueKey property**
 ----
+
+**uniqueKey property**
+
+-----
 
 In order the actions features in this components to work properly your feed **must** contain uniquekey.
 
@@ -155,12 +162,13 @@ You can define the uniqueKey through this property or you can use the default va
  **Example:**
  ```javascript
       config: {
-		uniqueKey: "sku"
-		}
+		  uniqueKey: "sku"
+		  }
 ```
 
 
 ***date property***
+
 ---
 Through this property you have the ability to toggle the date filter and define how you want the date data to be formatted within the table content.
 
@@ -169,15 +177,15 @@ Through this property you have the ability to toggle the date filter and define 
 
  **Example:**
  ```javascript
-      config: {
-       	    date: { 
-				active: false,
-				format: "MMMM Do (YYYY), h:mm:ss a" }
-				  }
-			}
+	config: {
+		date: {
+			active: false,
+			format: "MMMM Do (YYYY), h:mm:ss a" 
+			}}	
 ```
 
  **perPage**
+
 ---
 You can define how many item to be displayed in each page.
 
@@ -188,13 +196,14 @@ You can define how many item to be displayed in each page.
  **Example:**
  ```javascript
       config: {
-   			perPage: [5, 10, 15]
-  			 }
+		  perPage: [5, 10, 15]
+		  }
 ```
 
  **title**
+
 ---
-You can define custom title of the table to be displayed as table Title
+You can define custom title of the table to be displayed as table title
 
  - type: `string`
  - default `empty`
@@ -202,76 +211,120 @@ You can define custom title of the table to be displayed as table Title
   **Example:**
  ```javascript
       config: {
-   			title: "My Product Table"
-  			 }
+		  title: "My Product Table"
+		  }
 ```
   
   
  **bulkActions**
+
 ---
  
+You can disable the table bulk action completely through this property
+
   - type: `boolean`
   - default: `true`
+   
   
-  This **bulkActions** property give you the flexbility to disable or enable the bulk actions feature
-  
-   **Example:**
-	 ```javascript
-      config: {
-   			bulkActions: false
-  			 }
-	```
+**Example:**
+	 
+```javascript
+	config:{
+		 bulkActions: false
+		  }
+```
 	  
   **actions**
   
-  ---
+---
+
+You can toggle edit or delete action through this property
+
   - type: `object`
   default: `{ edite: true,  delete: true }`
   
-  This **Actions** property give the ability to enable or disable the edite & delete features
+
+**Example disable delete action only:**
+
+```javascript
+	config: { 
+		actions: { 
+			edite: true, 
+			delete: false
+			}
+		}
+```
   
-   **Example:**
-	 ```javascript
-      config: {
-   			actions: { 
-			          edite: true,
-					  delete: false
-			}}```
   
+**addNewItem**
   
-  **addNewItem**
-  
-  ---
+---
+
+You can disable the add new item feature through this property
+
  - type: `boolean`
  - default: `true`
+  
  
- This bulk **AddNewItem** give you the flexbility to disable or enable adding new item feature
- 
-   **Example:**
+**disabling add new item feature example:**
 	
-	 ```javascript
-      config: {
-   			addNewItem: false
-  			 }```
+```javascript
+	config: {
+		addNewItem: false
+		}
+```
 
+**newItemFields**
 
-   **newItemFields**
+---
 
- ---
+You can define the new item fields which will be displayed to the user to add new item
 
  - type: `array`
- - default: `all feed fields`
+ - default: `All feed fields will be used`
 
- This **newItemFields** allow you to define  the new item fields which the user can enter and the type of each field
+
 
  **this property accept four property in each object as follow:**
 ```javascript
-       		{
-                name: "", \\ The field name
-                type: "text", \\ The field type
-                required: true, \\ If the field is required or not 
-                value: "" \\ Default Value for the input
-              }
+	config: {
+        newItemFields: [
+          {
+            name: "Name", //The Name of the field which will be used as filed title
+            type: "text", //The field type the standard html input types
+            required: true, //If the field is required or not
+            value: "" //Default value
+		  }
+		  ]}
+```
+
+
+**In this exmaple we will assume that we have three field with different type**
+
+```javascript
+
+	config: {
+        newItemFields: [
+          {
+            name: "Name",  
+            type: "text", 
+            required: true,  
+            value: ""  
+          }, 
+          {
+            name: "Date",
+            type: "date",
+            required: true,
+            value: ""
+          },
+          {
+            name: "Amount",
+            type: "number",
+            required: true,
+            value: ""
+          }
+        ]}
+
 ```
 
 
@@ -289,9 +342,9 @@ This property accept four in each object as follow:
 ```javascript
     {
             name: "name", //Field Name
-            type: "text", // Field Type
-            required: true, // If required or not
-            value: "" // Field Default Value
+            type: "text", //Field Type
+            required: true, //If required or not
+            value: "" //Field Default Value
           }
 ```
 
@@ -308,7 +361,7 @@ This property give the ability to define which feed key to render in the table a
 This property accept three in each object as follow:
 
 ```javascript
-    {
+         {
             name: "id", //The Coulmn Name
             active: false, //If active or not 
             isEditable: false // is editable or not
