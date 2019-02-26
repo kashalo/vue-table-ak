@@ -6,10 +6,10 @@
           <h2>{{title}}</h2>
         </div>
         <div class="int-flex-item" v-if="activateAddNew">
-          <table-add :newItemsFields="newItemFields"></table-add>
+          <table-add :newItemsFields="newItemFields" v-if="validateKey"></table-add>
         </div>
       </div>
-      <table-actions></table-actions>
+      <table-actions v-if="validateKey"></table-actions>
       <div class="int-flex-container">
         <table class="int-table">
           <colgroup>

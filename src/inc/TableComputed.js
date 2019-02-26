@@ -206,7 +206,17 @@ const computed = {
 			return this.config.paginationLimit;
 		}
 		return this.limitVal;
-	}
+	},
+	/**
+	 * Check if the unique key exist in the feed or not if not disable the actions
+	 * @returns boolean
+	 */
+	validateKey() {
+		let keys =
+			this.dataSet[0] !== undefined ? Object.keys(this.dataSet[0]) : [];
+
+		return keys.includes(this.uniqueKey);
+	},
 }
 
 export default computed;
