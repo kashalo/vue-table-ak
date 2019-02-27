@@ -3,7 +3,8 @@
 Interactive table is responsive VUE table component with powerful features which give you the flexibility to use in any web projects and with any backend.
 
 
-In the botton of README I have included the basic of useage with Laraval as backend. [Laraval](#config-object)
+In the botton of README I have included the basic of useage with Laraval as backend. 
+[Laraval](#basic-usage-with-laravel)
  
  
 ## VUE Table AK Components Features
@@ -488,6 +489,110 @@ You can listen to those events from the events bus which is created globally
  
 
 # Basic usage with Laravel
+
+```html 
+<template>
+  <div class="container">
+    <div class="row justify-content-center">
+      <table-test :feed="data" :config="tableConfig"></table-test>
+    </div>
+  </div>
+</template>
+
+```
+
+```javascript
+<script>
+import TableTest from "vue-table-ak";
+export default {
+  components: { TableTest },
+  data() {
+    return {
+      data: [],
+      datalength: 0,
+      response: {},
+      limit: 0,
+      tableConfig: {
+        date: { active: true, format: "MMMM Do YYYY, h:mm:ss a" },
+        searchType: "remote",
+        paginationLength: 0,
+        paginationLimit: 10,
+        newItemFields: [
+          {
+            name: "Name", //The Name of the field
+            type: "text", //The field type the standard html input types
+            required: true, //If the field is required or not
+            value: "" //Default value
+          }
+        ],
+        columns: [
+          {
+            name: "title",
+            active: true,
+            isEditable: false
+          },
+          {
+            name: "body",
+            active: true,
+            isEditable: true
+          }
+        ]
+      },
+    };
+  },
+  created() {
+    this.fetch();
+  },
+  mounted() {
+    events.$on("remoteSearchTriggered", keywords => {
+      //Do Somthing
+    });
+    events.$on("pageChanged", page => {
+      this.fetch(page); //Fetch the data
+    });
+    events.$on("LimitChanged", value => {
+      //Update the data
+    });
+    events.$on("newItemsadded", data => {
+      //Add The new item
+    });
+    events.$on("itemChanged", (...data) => {
+      //Update the item
+    });
+    events.$on("bulkUpdateActionHasBeenTaken", data => {
+      //update the items
+    });
+    events.$on("bulkDeletedeActionHasBeenTaken", data => {
+      //Delete the items
+    });
+  },
+  methods: {
+    fetch(page) {
+      axios.get(this.url(page)).then(response => {
+        this.assingData(response);
+      });
+    },
+    assingData(response) {
+      this.data = response.data.data;
+      this.response = response.data;
+      this.tableConfig.paginationLength = response.data.total;
+      this.tableConfig.paginationLimit = response.data.per_page;
+    },
+
+    url(page) {
+      if (!page) {
+        let query = location.search.match(/page=(\d+)/);
+        page = query ? query[1] : 1;
+      }
+      return `${location.pathname}posts?page=${page}`;
+    }
+  }
+};
+</script>
+
+
+
+```
 
 **Table Images**
 
