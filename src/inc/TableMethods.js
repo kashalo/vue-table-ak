@@ -17,7 +17,7 @@ const methods = {
 	 * @returns Boolean
 	 */
 	bulkActions() {
-		if (this.config.bulkActions !== undefined && this.validateKey()) {
+		if (this.config.bulkActions !== undefined && this.validateKey) {
 			return this.config.bulkActions;
 		}
 		return true;
