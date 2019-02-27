@@ -429,18 +429,26 @@ This property accept three in each object as follow:
 ```
 
 **searchType**
+
+Though this property you can define the search feature type if local this component will search only in the provided feed data and if remote then an a searcg event will be triggered and provide the entered keyword after the user enter three character in the search box so you can trigger an Ajax request to your backend.
+
+The event name which will be triggered in case of remote search is `remoteSearchTriggered`
+
  - type: `String`
  - default: `local`
  - options: `remote , local`
 
 
-Though this property you can define the search feature type if local this component will search only in the provided feed and if remote then an event of serach will be triggered after the user enter three character in the search box so you can trigger for example an Ajax request to your backend.
-
-
+```javascript 
+		  
+	config: {
+		searchType: "local"
+		}
+```
 
  **Events**
 ---
-This component trigger several events in order the responsbile object to take the neccessary action.
+This component trigger several events in order the responsible object to take the necessary action.
 
 **Events List:**
 ---
@@ -449,17 +457,24 @@ This component trigger several events in order the responsbile object to take th
 - bulkUpdateActionHasBeenTaken
 - bulkDeletedeActionHasBeenTaken
 - LimitChanged
+- remoteSearchTriggered
 
 
 **Events Details**
 ---
-Each event give you the assosiated data with that action as follow: 
+Each event give you the associated data with that action as follow:
 
-- newItemsadded 
+- **newItemsadded:**  It will provide an object with values entered and the newly object so you can persist the data into your database
 
-It will provide an object with values entered 
+- **itemChanged:** item will provide the object content along with the index for that object when an inline edit action has been taken
 
-- item will provide the object content along with the index for that object 
+- **bulkUpdateActionHasBeenTaken:** it will provide the indexes for the chosen object with the new values when the bulk edit action has been taken.
+
+- **bulkDeletedeActionHasBeenTaken:** it will provide the indexes for the chosen object when bulk delete action has been taken.
+
+- **LimitChanged:** it will provide the chosen value of the limit per Page when the user modify the limit per page.
+
+- **remoteSearchTriggered:** it will provide the search keyword when the user enter three character into the search box
 
 You can listen to those events from the events bus which is created globally 
 
@@ -470,8 +485,6 @@ You can listen to those events from the events bus which is created globally
      doSomthing(data);
     })
 ```
-
-#Complete the 
  
 
 # Basic usage with Laravel
