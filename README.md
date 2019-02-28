@@ -23,6 +23,12 @@ In the botton of README I have included the basic of useage with Laraval as back
 * Reusable
 * Configurable
 
+### Live Demo
+
+You can see it live at the following link: 
+
+http://dev-ak.com/vue-table-ak/
+
 ## Prerequisite
 
 -  This package is vue Components so you must have VUE in order to use it.
